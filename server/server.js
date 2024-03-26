@@ -1,11 +1,11 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = 'mongodb://localhost:27017';
 
-// Déclarez collection en tant que variable globale
 let collection = null;
 
 async function connectToMongoDB() {
@@ -14,10 +14,8 @@ async function connectToMongoDB() {
     try {
         await client.connect();
         console.log('Connecté à la base de données MongoDB');
-
         const database = client.db('React_app');
-        collection = database.collection('cart_items');
-
+        collection = database.collection('Users');
     } catch (error) {
         console.error('Erreur de connexion à la base de données MongoDB:', error);
     }
@@ -25,39 +23,39 @@ async function connectToMongoDB() {
 
 connectToMongoDB();
 
-// Route racine pour vérifier si le serveur est en cours d'exécution
+app.use(bodyParser.json());
+
+// Middleware pour autoriser les requêtes CORS
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+
 app.get('/', (req, res) => {
     res.send('Le serveur fonctionne correctement');
 });
 
-// Route pour récupérer les données depuis la base de données
-app.get('/data', async (req, res) => {
+app.post('/register', async (req, res) => {
     try {
-        const data = await collection.find({}).toArray();
-        res.json(data);
+        const { email, password } = req.body;
+        await collection.insertOne({ email, password });
+        res.status(201).json({ message: 'Utilisateur enregistré avec succès' });
     } catch (error) {
-        console.error('Erreur lors de la récupération des données depuis MongoDB:', error);
-        res.status(500).json({ message: 'Erreur lors de la récupération des données' });
+        console.error('Erreur lors de l\'enregistrement de l\'utilisateur:', error);
+        res.status(500).json({ message: 'Erreur lors de l\'enregistrement de l\'utilisateur' });
     }
 });
 
-// Route pour récupérer les noms des produits
-app.get('/produits/noms', async (req, res) => {
-    try {
-        // Récupérer tous les documents de la collection
-        const produits = await collection.find({}).toArray();
-
-        // Extraire les noms des produits
-        const nomsProduits = produits.map(produit => produit.nom);
-
-        res.json(nomsProduits);
-    } catch (error) {
-        console.error('Erreur lors de la récupération des noms des produits:', error);
-        res.status(500).json({ message: 'Erreur lors de la récupération des noms des produits' });
-    }
+// Middleware pour gérer les requêtes OPTIONS
+app.options('*', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.send();
 });
 
-// Démarrer le serveur
 app.listen(PORT, () => {
     console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
 });

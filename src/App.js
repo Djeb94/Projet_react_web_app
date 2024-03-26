@@ -2,27 +2,40 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  // Définition des états pour les valeurs des champs du formulaire
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(''); 
   const [email, setEmail] = useState('');
 
-  // Fonction de soumission du formulaire
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Empêche le rechargement de la page lors de la soumission du formulaire
-    // Vous pouvez traiter les valeurs des champs ici
-    console.log("Password:", password);
-    console.log("Email:", email);
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if(password !== "" && email !== ""){
+    try {
+      const response = await fetch('http://localhost:5000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+        
+      });
+      
+      if (response.ok) {
+        console.log('Utilisateur enregistré avec succès');
+        window.location.href = 'http://localhost:3000/';
+      } else {
+        console.error('Erreur lors de l\'enregistrement de l\'utilisateur');
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'enregistrement de l\'utilisateur:', error);
+    } } else {
+      console.log('invalide data')
+    }
+  } ;
 
   return (
     <div className="App">
       <header className="App-header">
-
-        {/* Formulaire */}
         <form onSubmit={handleSubmit}>
-          {/* Champ de saisie pour le nom */}
           <br />
-          {/* Champ de saisie pour l'email */}
           <label>
             Email:
             <input
@@ -41,7 +54,6 @@ function App() {
             />
           </label>
           <br />
-          {/* Bouton de soumission */}
           <button type="submit">Soumettre</button>
         </form>
       </header>
