@@ -28,9 +28,10 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); // Ajoutez 'Authorization' ici
     next();
 });
+
 
 app.get('/', (req, res) => {
     res.send('Le serveur fonctionne correctement');
@@ -50,19 +51,20 @@ app.post('/register', async (req, res) => {
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
-  
+
     // Vérifier les informations d'authentification dans la base de données
     const usersCollection = client.db('React_app').collection('Users');
     const user = await usersCollection.findOne({ email, password });
-  
+
     if (user) {
-      // Authentification réussie
-      const token = jwt.sign({ email: user.email, userId: user._id }, 'votre_clé_secrète', { expiresIn: '1h' });
-      res.status(200).json({ message: 'Authentification réussie', token });
-      
+        // Authentification réussie
+        const token = jwt.sign({ email: user.email, userId: user._id }, 'votre_clé_secrète', { expiresIn: '1h' });
+        res.status(200).json({ message: 'Authentification réussie', token });
+        console.log(token);
+
     } else {
-      // Échec de l'authentification
-      res.status(401).json({ message: 'Email ou mot de passe incorrect' });
+        // Échec de l'authentification
+        res.status(401).json({ message: 'Email ou mot de passe incorrect' });
     }
 });
 

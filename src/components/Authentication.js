@@ -1,10 +1,10 @@
-// Authentication.js
 import React, { useState } from 'react';
-import '../App.css';
+import { useNavigate } from 'react-router-dom';
 
 function Authentication() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,11 +19,13 @@ function Authentication() {
         body: JSON.stringify({ email, password }),
       });
 
-      
       if (response.ok) {
+        // Authentification réussie
+        const data = await response.json();
+        const { token } = data;
+        localStorage.setItem('token', token); // Stocker le token JWT dans le localStorage
         console.log('Authentification réussie');
-       // window.location.href = 'http://localhost:3000/products';
-  
+        navigate('/products'); // Rediriger vers la page protégée
       } else {
         console.error('Échec de l\'authentification');
       }
