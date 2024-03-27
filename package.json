@@ -14,6 +14,7 @@
     "mongodb": "^6.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
     "react-scripts": "^5.0.1",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
@@ -44,5 +45,4 @@
       "last 1 safari version"
     ]
   }
-  
 }

@@ -1,63 +1,22 @@
-import React, { useState } from 'react';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Importez Routes au lieu de Switch
+import Register from './components/Register';
+import Authentication from './components/Authentication';
+import Products from './components/Products';
+import NotFound from './components/NotFound';
 
 function App() {
-  const [password, setPassword] = useState(''); 
-  const [email, setEmail] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if(password !== "" && email !== ""){
-    try {
-      const response = await fetch('http://localhost:5000/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-        
-      });
-      
-      if (response.ok) {
-        console.log('Utilisateur enregistré avec succès');
-        window.location.href = 'http://localhost:3000/';
-      } else {
-        console.error('Erreur lors de l\'enregistrement de l\'utilisateur');
-      }
-    } catch (error) {
-      console.error('Erreur lors de l\'enregistrement de l\'utilisateur:', error);
-    } } else {
-      console.log('invalide data')
-    }
-  } ;
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <form onSubmit={handleSubmit}>
-          <br />
-          <label>
-            Email:
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-          <br />
-          <label>
-            Password:
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <br />
-          <button type="submit">Soumettre</button>
-        </form>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes> {/* Utilisez Routes au lieu de Switch */}
+          <Route path="/" element={<Register />} /> {/* Utilisez element au lieu de component */}
+          <Route path="/authentication" element={<Authentication />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="*" element={<NotFound />} /> {/* Utilisez * pour gérer toutes les routes inconnues */}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
