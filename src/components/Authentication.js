@@ -22,7 +22,7 @@ function Authentication() {
       
       if (response.ok) {
         console.log('Authentification réussie');
-        window.location.href = 'http://localhost:3000/';
+       // window.location.href = 'http://localhost:3000/products';
   
       } else {
         console.error('Échec de l\'authentification');

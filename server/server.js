@@ -1,6 +1,7 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -56,10 +57,34 @@ app.post('/login', async (req, res) => {
   
     if (user) {
       // Authentification réussie
-      res.status(200).json({ message: 'Authentification réussie' });
+      const token = jwt.sign({ email: user.email, userId: user._id }, 'votre_clé_secrète', { expiresIn: '1h' });
+      res.status(200).json({ message: 'Authentification réussie', token });
+      
     } else {
       // Échec de l'authentification
       res.status(401).json({ message: 'Email ou mot de passe incorrect' });
+    }
+});
+
+
+app.get('/products', (req, res) => {
+    // Récupérer le token JWT depuis l'en-tête de la requête
+    const token = req.headers.authorization;
+
+    if (token) {
+        // Vérifier et décoder le token JWT
+        jwt.verify(token, 'votre_clé_secrète', (err, decoded) => {
+            if (err) {
+                // Le token est invalide
+                return res.status(401).json({ message: 'Token JWT invalide' });
+            } else {
+                // Le token est valide, autoriser l'accès à la page "Products"
+                res.status(200).json({ message: 'Accès autorisé à la page Products' });
+            }
+        });
+    } else {
+        // Le token JWT est manquant dans l'en-tête de la requête
+        res.status(401).json({ message: 'Token JWT manquant dans l\'en-tête de la requête' });
     }
 });
 
