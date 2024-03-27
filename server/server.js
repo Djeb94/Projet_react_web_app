@@ -6,16 +6,14 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = 'mongodb://localhost:27017';
 
-let collection = null;
+let client = null;
 
 async function connectToMongoDB() {
-    const client = new MongoClient(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    client = new MongoClient(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
         await client.connect();
         console.log('Connecté à la base de données MongoDB');
-        const database = client.db('React_app');
-        collection = database.collection('Users');
     } catch (error) {
         console.error('Erreur de connexion à la base de données MongoDB:', error);
     }
@@ -40,11 +38,28 @@ app.get('/', (req, res) => {
 app.post('/register', async (req, res) => {
     try {
         const { email, password } = req.body;
-        await collection.insertOne({ email, password });
+        const usersCollection = client.db('React_app').collection('Users');
+        await usersCollection.insertOne({ email, password });
         res.status(201).json({ message: 'Utilisateur enregistré avec succès' });
     } catch (error) {
         console.error('Erreur lors de l\'enregistrement de l\'utilisateur:', error);
         res.status(500).json({ message: 'Erreur lors de l\'enregistrement de l\'utilisateur' });
+    }
+});
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+  
+    // Vérifier les informations d'authentification dans la base de données
+    const usersCollection = client.db('React_app').collection('Users');
+    const user = await usersCollection.findOne({ email, password });
+  
+    if (user) {
+      // Authentification réussie
+      res.status(200).json({ message: 'Authentification réussie' });
+    } else {
+      // Échec de l'authentification
+      res.status(401).json({ message: 'Email ou mot de passe incorrect' });
     }
 });
 
