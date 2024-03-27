@@ -1,3 +1,4 @@
+// Authentication.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -5,12 +6,11 @@ function Authentication() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     try {
-      // Envoyer les données d'authentification au serveur
       const response = await fetch('http://localhost:5000/login', {
         method: 'POST',
         headers: {
@@ -20,12 +20,11 @@ function Authentication() {
       });
 
       if (response.ok) {
-        // Authentification réussie
         const data = await response.json();
         const { token } = data;
-        localStorage.setItem('token', token); // Stocker le token JWT dans le localStorage
+        localStorage.setItem('token', token); // Stockez le token JWT dans le localStorage
         console.log('Authentification réussie');
-        navigate('/products'); // Rediriger vers la page protégée
+        navigate('/products'); // Redirigez vers la page protégée
       } else {
         console.error('Échec de l\'authentification');
       }
@@ -38,7 +37,7 @@ function Authentication() {
     <div>
       <h2>Authentification</h2>
       <form onSubmit={handleSubmit}>
-        <label>
+      <label>
           Email:
           <input
             type="email"

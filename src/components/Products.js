@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+    //import React, { useEffect } from 'react';
 
 function Products() {
-    useEffect(() => {
+   /* useEffect(() => {
         const token = localStorage.getItem('token'); // Récupérer le token JWT du stockage local
 
         if (token) {
@@ -30,7 +30,7 @@ function Products() {
             console.error("Unauthorized");
         }
     }, []); // Le tableau vide indique que cet effet ne dépend d'aucune variable, il ne sera donc exécuté qu'une seule fois lors du montage du composant
-
+*/
     return (
         <div>
             <h1>Products</h1>

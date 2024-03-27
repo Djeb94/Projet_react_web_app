@@ -1,14 +1,14 @@
 // ProtectedRoute.js
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-function ProtectedRoute({ element, isAuthenticated, ...rest }) {
-  if (isAuthenticated) {
-    return <Route {...rest} element={element} />;
+export default function ProtectedRoute() {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    return <Outlet />;
   } else {
-    // Redirigez l'utilisateur vers la page de connexion s'il n'est pas authentifié
-    return <Navigate to="/login" />;
+    return <Navigate to="/authentication" />;
   }
 }
-
-export default ProtectedRoute;
