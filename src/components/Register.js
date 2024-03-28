@@ -34,9 +34,8 @@ function Login() { // Renommez App en Login
   return (
     <div className="App">
       <header className="App-header">
+      <h2>Register</h2>
         <form onSubmit={handleSubmit}>
-        <h2>Register</h2>
-          <br />
           <label>
             Email:
             <input
@@ -59,6 +58,7 @@ function Login() { // Renommez App en Login
           <br />
           <button type="submit">Submit</button>
         </form>
+        <p>Already an account ? <a href='http://localhost:3000/authentication'>Login here</a></p>
       </header>
     </div>
   );

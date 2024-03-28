@@ -1,13 +1,17 @@
 // Main.js
 import React from 'react';
+import '../main.css';
 import { Link } from 'react-router-dom';
 
 function Main() {
   return (
-    <div>
-      <h1>Main page</h1>
-      <Link to="/authentication"><button>Login</button></Link>
-      <Link to="/register"><button>Register</button></Link>
+    <div id='w-div'>
+    <h1>Welcome to our fullstack app</h1>
+    <div id='main-div'>
+      
+      <Link to="/authentication"><button id='login'>Login</button></Link>
+      <Link to="/register"><button id='register'>Register</button></Link>
+    </div>
     </div>
   );
 }

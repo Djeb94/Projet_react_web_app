@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 function Authentication() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,8 +35,9 @@ function Authentication() {
   };
 
   return (
-    <div>
-      <h2>Authentification</h2>
+    <div className='App'>
+    <div className="App-header">
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
       <label>
           Email:
@@ -59,6 +61,9 @@ function Authentication() {
         <br />
         <button type="submit">Login</button>
       </form>
+      <p>No account ? <a href='http://localhost:3000/register'>register here</a></p>
+      </div>
+
     </div>
   );
 }

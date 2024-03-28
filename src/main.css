@@ -1,0 +1,60 @@
+body{
+   background-color:  #282c34;
+}
+#w-div{
+    text-align: center;
+    color: white;
+    margin-top: 100px;
+}
+#main-div{
+    justify-content: center;
+    margin-top: 150px;
+    display: flex;
+}
+#register{
+    margin-left: 20px;
+    background-color: #527ed7;
+    border: none;
+    transition: all 250ms;
+    animation: zoom 3s infinite;
+        animation-fill-mode: unset;
+}
+#register:hover{
+   opacity: 70%;
+}
+#login{
+    margin-right: 20px;
+    background-color: transparent;
+    border: 2px solid #527ed7 ;
+    transition: all 250ms;
+    animation: zoom 3s infinite;
+        animation-fill-mode: unset;
+}
+#login:hover{
+    opacity: 70%;
+ }
+
+
+
+    @keyframes zoom {
+        0% {
+            transform: scale(1.1);
+        }
+
+        50% {
+            transform: scale(1);
+        }
+
+        100% {
+            transform: scale(1.1);
+        }
+    }
+
+#main-div button{
+    width: 125px;
+    padding: 15px 10px 15px 10px;
+    border-radius: 20px;
+    color: white;
+    font-size: 15px;
+    box-shadow:  0 0 20px #527ed7;
+}

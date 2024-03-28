@@ -105,6 +105,32 @@ app.get('/api/items', async (req, res) => {
     }
   });
 
+  app.post('/addProducts', async (req, res) => {
+    const db = client.db('React_app');
+      const collection = db.collection('cart_items');
+      const { name, price } = req.body;
+      try {
+        const result = await collection.insertOne({ name, price });
+        console.log(result);
+        res.status(201).json(result.ops[0]);
+      } catch (error) {
+        console.error('Error adding item:', error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+      
+  });
+  app.post('/addProduct', async (req, res) => {
+    try {
+        const { name, price } = req.body;
+        const itemCollection = client.db('React_app').collection('cart_items');
+        await itemCollection.insertOne({ name, price });
+        res.status(201).json({ message: 'Produit creer' });
+    } catch (error) {
+        console.error('Erreur lors de la creation du produits:', error);
+        res.status(500).json({ message: 'Erreur lors de la creation du produits' });
+    }
+});
+  
   
 
 // Middleware pour gérer les requêtes OPTIONS
