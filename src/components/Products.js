@@ -14,7 +14,7 @@ function Products() {
     // Videz le localStorage
     localStorage.removeItem('token');
     // Redirigez l'utilisateur vers la page d'authentification
-    navigate('/authentication');
+    navigate('/');
   };
 
   useEffect(() => {
