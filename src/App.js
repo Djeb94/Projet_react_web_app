@@ -4,9 +4,10 @@ import {Fragment} from 'react';
 import Register from './components/Register';
 import Authentication from './components/Authentication';
 import Products from './components/Products';
-import NotFound from './components/NotFound';
 import Main from './components/main';
 import ProtectedRoute from './components/ProtectedRoute';
+import AddProduct from './components/addProduct';
+
 
 function App() {
   return (
@@ -18,8 +19,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route element={<ProtectedRoute/>}>
             <Route exact path='/products' element={<Products/>}/>
+            <Route exact path='/addProduct' element={<AddProduct/>}/>
           </Route>
-          <Route path="*" element={<NotFound />} /> {/* Utilisez * pour gérer toutes les routes inconnues */}
         </Routes>
         </Fragment>
     </Router>

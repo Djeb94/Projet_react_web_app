@@ -1,7 +1,8 @@
 // Products.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+
 import '../products.css';
 
 function Products() {
@@ -25,7 +26,9 @@ function Products() {
   return (
     <div className='products-div'>
       <button onClick={handleLogout} id='disconnect'>Disconnect</button>
+    <Link to="/addProduct">
       <button id='add'>Add products</button>
+      </Link>
       <h2>Products</h2>
       
       <ul>
