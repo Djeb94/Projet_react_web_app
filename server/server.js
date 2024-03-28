@@ -90,6 +90,23 @@ app.get('/products', (req, res) => {
     }
 });
 
+app.get('/api/items', async (req, res) => {
+    const database = client.db('React_app');
+      const collection = database.collection('cart_items');
+    try {
+      
+      const products = await collection.find({}, { projection: { id: 1, name: 1, price: 1 } }).toArray();
+  
+      
+      res.json(products);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  
+
 // Middleware pour gérer les requêtes OPTIONS
 app.options('*', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

@@ -1,41 +1,28 @@
-    //import React, { useEffect } from 'react';
+// Products.js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Products() {
-   /* useEffect(() => {
-        const token = localStorage.getItem('token'); // Récupérer le token JWT du stockage local
+  const [items, setItems] = useState([]);
 
-        if (token) {
-            // Effectuer une requête GET vers http://localhost:5000/products avec le token JWT dans l'en-tête de la requête
-            fetch("http://localhost:5000/products", {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}` // Inclure le token JWT dans l'en-tête de la requête
-                },
-                
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Erreur lors de la récupération des produits");
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Faire quelque chose avec les données récupérées si nécessaire
-                console.log("Produits récupérés :", data);
-            })
-            .catch(error => {
-                console.error("Erreur :", error);
-            });
-        } else {
-            console.error("Unauthorized");
-        }
-    }, []); // Le tableau vide indique que cet effet ne dépend d'aucune variable, il ne sera donc exécuté qu'une seule fois lors du montage du composant
-*/
-    return (
-        <div>
-            <h1>Products</h1>
-        </div>
-    );
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/items') // Utilisez l'URL complète avec le port 5000
+      .then(response => setItems(response.data))
+      .catch(error => console.error('Error fetching items:', error));
+  }, []);
+
+  return (
+    <div>
+      <h2>Products</h2>
+      <ul>
+        {items.map(item => (
+          <li key={item._id}>
+            <strong>{item.name}</strong> - ${item.price}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export default Products;
