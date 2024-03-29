@@ -51,6 +51,7 @@ function AddProduct() {
             <input
               type="number"
               min="0"
+              step=".01"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               required

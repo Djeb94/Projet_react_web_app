@@ -1,5 +1,6 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const { ObjectId } = require('mongodb');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 
@@ -115,6 +116,51 @@ app.get('/api/items', async (req, res) => {
     } catch (error) {
         console.error('Erreur lors de la creation du produits:', error);
         res.status(500).json({ message: 'Erreur lors de la creation du produits' });
+    }
+});
+
+app.delete('/api/items/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        // Accédez à la collection "cart-items"
+        const collection = client.db('React_app').collection('cart_items');
+        // Supprimez l'article avec l'ID spécifié
+        const result = await collection.deleteOne({ _id: new ObjectId(id) }); // Utilisez new ObjectId(id)
+        // Vérifiez si l'article a été supprimé avec succès
+        if (result.deletedCount === 1) {
+            res.status(200).json({ message: 'Article deleted successfully' });
+        } else {
+            res.status(404).json({ error: 'Article not found' });
+        }
+    } catch (error) {
+        console.error('Error deleting item:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.put('/api/items/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, price } = req.body;
+
+        // Accédez à la collection "cart-items"
+        const collection = client.db('React_app').collection('cart_items');
+
+        // Mettez à jour l'article avec l'ID spécifié
+        const result = await collection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: { name, price } }
+        );
+
+        // Vérifiez si l'article a été mis à jour avec succès
+        if (result.matchedCount === 1) {
+            res.status(200).json({ message: 'Article updated successfully' });
+        } else {
+            res.status(404).json({ error: 'Article not found' });
+        }
+    } catch (error) {
+        console.error('Error updating item:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
   

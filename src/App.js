@@ -7,6 +7,7 @@ import Products from './components/Products';
 import Main from './components/main';
 import ProtectedRoute from './components/ProtectedRoute';
 import AddProduct from './components/addProduct';
+import ModifyProducts from './components/ModifyProduct';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route element={<ProtectedRoute/>}>
             <Route exact path='/products' element={<Products/>}/>
             <Route exact path='/addProduct' element={<AddProduct/>}/>
+            <Route exact path='/modifyProduct/:id' element={<ModifyProducts/>}/>
           </Route>
         </Routes>
         </Fragment>
