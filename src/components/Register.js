@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 
-function Login() { // Renommez App en Login
+export function Register() { // Renommez App en Login
   const [password, setPassword] = useState(''); 
   const [email, setEmail] = useState('');
 
@@ -64,4 +64,4 @@ function Login() { // Renommez App en Login
   );
 }
 
-export default Login; // Modifier l'export pour correspondre au nom du composant
+export default Register; // Modifier l'export pour correspondre au nom du composant
