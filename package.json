@@ -24,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll --testMatch **/src/**/*.test.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -46,6 +46,12 @@
     ]
   },
   "devDependencies": {
-    "jest": "^27.5.1"
+    "@babel/preset-env": "^7.24.3",
+    "babel-jest": "^29.7.0",
+    "esm": "^3.2.25",
+    "fetch-mock": "^9.11.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.5.1",
+    "node-fetch": "^3.3.2"
   }
 }

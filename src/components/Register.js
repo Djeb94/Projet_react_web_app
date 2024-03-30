@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 
-export function Register() { // Renommez App en Login
+export function Register() { 
   const [password, setPassword] = useState(''); 
   const [email, setEmail] = useState('');
 
@@ -15,9 +15,8 @@ export function Register() { // Renommez App en Login
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
-        
       });
-      
+    
       if (response.ok) {
         console.log('Utilisateur enregistré avec succès');
         window.location.href = 'http://localhost:3000/';
@@ -26,13 +25,12 @@ export function Register() { // Renommez App en Login
       }
     } catch (error) {
       console.error('Erreur lors de l\'enregistrement de l\'utilisateur:', error);
-    } 
-      console.log('invalide data')
-   
+      console.log('invalide data');
+    }
   } ;
 
   return (
-    <div className="App">
+    <div className="App" data-testid="register-1">
       <header className="App-header">
       <h2>Register</h2>
         <form onSubmit={handleSubmit}>
