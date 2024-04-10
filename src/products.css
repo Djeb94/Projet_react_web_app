@@ -10,25 +10,11 @@
     margin-top: 50px;
 }
 
-.products-div #disconnect{
-    margin-right: 20px;
-    margin-top: 50px;
-    background-color: rgb(199, 53, 53);
-    box-shadow:  0 0 15px rgb(199, 53, 53);
-    color: white;
-    border: none;
-    padding: 10px 15px 10px 15px;
-    width: 125px;
-    border-radius: 20px;
-    font-size: 15px;
-    transition: all 250ms;
-}
-.products-div #disconnect:hover{
- opacity: 70%;
-}
+
 
 .products-div #add{
-    margin-left: 20px;
+       
+        margin-left: 0px;
         background-color: #527ed7;
         box-shadow:  0 0 20px #527ed7;
         border: none;
@@ -37,21 +23,26 @@
         font-size: 15px;
         padding: 15px 10px 15px 10px;
         border-radius: 20px;
+        
     
 }
+#add-div{
+    display: flex;
+}
+
 .products-div #add:hover{
     
 opacity: 70%;
 }
 
 .products-div #delete{
-    margin-left: 20px ;
-    border:2px solid rgb(199, 53, 53);
-    color: rgb(199, 53, 53);
-    background-color: transparent;
-    padding: 8px 13px 8px 13px;
-    width: 75px;
-    border-radius: 20px;
+    margin-left: 10px ;
+    border:none;
+    background-color: rgb(199, 53, 53);
+    color: white;
+    padding: 7px 2px 7px 2px;
+    width: 35px;
+    border-radius: 10px;
     font-size: 12px;
     transition: all 250ms;
 }
@@ -65,9 +56,9 @@ opacity: 70%;
     border:2px solid #527ed7;
     color: #527ed7;
     background-color: transparent;
-    padding: 8px 13px 8px 13px;
-    width: 75px;
-    border-radius: 20px;
+    padding: 5px 0px 5px 0px;
+    width: 35px;
+    border-radius: 10px;
     font-size: 12px;
     transition: all 250ms;
 }
@@ -75,3 +66,7 @@ opacity: 70%;
     
     opacity: 70%;
     }
+
+.material-icons{
+    font-size: 18px;
+}

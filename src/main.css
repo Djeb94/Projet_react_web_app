@@ -1,5 +1,5 @@
 body{
-   background-color:  #282c34;
+   background-color:  #101114;
 }
 #w-div{
     text-align: center;
@@ -13,7 +13,7 @@ body{
 }
 #register{
     margin-left: 20px;
-    background-color: #527ed7;
+    background-color: #b852d7;
     border: none;
     transition: all 250ms;
     animation: zoom 3s infinite;
@@ -25,8 +25,9 @@ body{
 #login{
     margin-right: 20px;
     background-color: transparent;
-    border: 2px solid #527ed7 ;
+    border: 2px solid #b852d7 ;
     transition: all 250ms;
+    color: #b852d7;
     animation: zoom 3s infinite;
         animation-fill-mode: unset;
 }
@@ -54,7 +55,7 @@ body{
     width: 125px;
     padding: 15px 10px 15px 10px;
     border-radius: 20px;
-    color: white;
+    
     font-size: 15px;
-    box-shadow:  0 0 20px #527ed7;
+    box-shadow:  0 0 20px #b852d7;
 }

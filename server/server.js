@@ -8,10 +8,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = 'mongodb://localhost:27017';
 
+
 let client = null;
 
 async function connectToMongoDB() {
     client = new MongoClient(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    
 
     try {
         await client.connect();
@@ -40,10 +42,13 @@ app.get('/', (req, res) => {
 
 app.post('/register', async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const usersCollection = client.db('React_app').collection('Users');
-        await usersCollection.insertOne({ email, password });
-        res.status(201).json({ message: 'Utilisateur enregistré avec succès' });
+        const { username, email, password } = req.body;
+        const usersCollection = client.db('ToDoDB').collection('users');
+        const result = await usersCollection.insertOne({ username, email, password });
+        
+        const insertedId = result.insertedId; // Récupérer l'ID de l'utilisateur nouvellement créé
+
+        res.status(201).json({ message: 'Utilisateur enregistré avec succès', userId: insertedId }); // Renvoyer l'ID de l'utilisateur
     } catch (error) {
         console.error('Erreur lors de l\'enregistrement de l\'utilisateur:', error);
         res.status(500).json({ message: 'Erreur lors de l\'enregistrement de l\'utilisateur' });
@@ -54,20 +59,21 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     // Vérifier les informations d'authentification dans la base de données
-    const usersCollection = client.db('React_app').collection('Users');
+    const usersCollection = client.db('ToDoDB').collection('users');
     const user = await usersCollection.findOne({ email, password });
 
     if (user) {
         // Authentification réussie
         const token = jwt.sign({ email: user.email, userId: user._id }, 'votre_clé_secrète', { expiresIn: '1h' });
-        res.status(200).json({ message: 'Authentification réussie', token });
-        console.log(token);
+        res.status(200).json({ message: 'Authentification réussie', token, username: user.username, userId: user._id }); // Renvoyer également l'ID de l'utilisateu
 
     } else {
         // Échec de l'authentification
         res.status(401).json({ message: 'Email ou mot de passe incorrect' });
     }
 });
+
+
 
 
 app.get('/products', (req, res) => {
@@ -91,39 +97,41 @@ app.get('/products', (req, res) => {
     }
 });
 
-app.get('/api/items', async (req, res) => {
-    const database = client.db('React_app');
-      const collection = database.collection('cart_items');
+app.get('/api/items/:userId', async (req, res) => {
+    const userId = req.params.userId; // Récupérer l'userId depuis les paramètres de l'URL
+    const collection = client.db('ToDoDB').collection('tasks');
     try {
-      
-      const products = await collection.find({}, { projection: { id: 1, name: 1, price: 1 } }).toArray();
-  
-      
-      res.json(products);
+        // Filtrer les tâches en fonction de l'userId
+        const products = await collection.find({ userId: userId }).toArray();
+        res.json(products);
     } catch (error) {
-      console.error('Error fetching products:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  });
-
-  
-  app.post('/addProduct', async (req, res) => {
-    try {
-        const { name, price } = req.body;
-        const itemCollection = client.db('React_app').collection('cart_items');
-        await itemCollection.insertOne({ name, price });
-        res.status(201).json({ message: 'Produit creer' });
-    } catch (error) {
-        console.error('Erreur lors de la creation du produits:', error);
-        res.status(500).json({ message: 'Erreur lors de la creation du produits' });
+        console.error('Error fetching products:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+
+
+
+  
+  app.post('/addTask', async (req, res) => {
+    try {
+        const { name, importance, userId } = req.body; // Ajoutez userId à partir du corps de la requête
+        const itemCollection = client.db('ToDoDB').collection('tasks');
+        await itemCollection.insertOne({ name, importance, userId }); // Enregistrez également userId avec la tâche
+        res.status(201).json({ message: 'Produit créé' });
+    } catch (error) {
+        console.error('Erreur lors de la création du produit :', error);
+        res.status(500).json({ message: 'Erreur lors de la création du produit' });
+    }
+});
+
 
 app.delete('/api/items/:id', async (req, res) => {
     try {
         const { id } = req.params;
         // Accédez à la collection "cart-items"
-        const collection = client.db('React_app').collection('cart_items');
+        const collection = client.db('ToDoDB').collection('tasks');
         // Supprimez l'article avec l'ID spécifié
         const result = await collection.deleteOne({ _id: new ObjectId(id) }); // Utilisez new ObjectId(id)
         // Vérifiez si l'article a été supprimé avec succès
@@ -144,7 +152,7 @@ app.put('/api/items/:id', async (req, res) => {
         const { name, price } = req.body;
 
         // Accédez à la collection "cart-items"
-        const collection = client.db('React_app').collection('cart_items');
+        const collection = client.db('ToDoDB').collection('tasks');
 
         // Mettez à jour l'article avec l'ID spécifié
         const result = await collection.updateOne(

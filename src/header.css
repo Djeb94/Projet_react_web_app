@@ -1,0 +1,34 @@
+header{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 150px;
+}
+header li{
+    color: white;
+}
+header li a {
+    color: white;
+    
+}
+header ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+#disconnect{
+    float: right;
+    margin-right: 20px;
+    background-color: rgb(199, 53, 53);
+    box-shadow:  0 0 15px rgb(199, 53, 53);
+    color: white;
+    border: none;
+    padding: 10px 15px 10px 15px;
+    width: 125px;
+    border-radius: 20px;
+    font-size: 15px;
+    transition: all 250ms;
+}
+#disconnect:hover{
+ opacity: 70%;
+}

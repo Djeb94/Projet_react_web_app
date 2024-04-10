@@ -1,0 +1,221 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+
+
+/* Login Card */
+.logincard {
+    margin-top: 100px;
+    width: 350px;
+    background: rgba(255, 255, 255, .5);
+    padding: 4rem;
+    border-radius: 10px;
+    position: relative;
+    zoom: 80%;
+}
+
+/* Login Card Logo */
+.logincardlogo {
+    margin-bottom: 2rem;
+}
+
+.logincardlogo img {
+    width: 60px;
+}
+
+/* ---------- */
+
+/* Login Card Standard */
+.logincardlogo,
+.logincardheader,
+.logincardfooter {
+    text-align: center;
+}
+
+.logincard a {
+    text-decoration: none;
+    color: #35339a;
+}
+
+.logincard a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- */
+
+/* Login Card Header */
+.logincardheader {
+    margin-bottom: 2rem;
+}
+
+.logincardheader h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: .5rem;
+}
+
+.logincardheader h1+div {
+    font-size: calc(1rem * .8);
+    opacity: .8;
+}
+
+/* ---------- */
+
+/* Login Card Form */
+.logincardform {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.logincardform .formitem {
+    position: relative;
+}
+
+.logincardform .formitem .material-icons {
+    position: absolute;
+    top: .82rem;
+    left: 1.4rem;
+    font-size: 1.3rem;
+    opacity: .4;
+}
+
+.logincardform .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.logincardform .formitemother {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: calc(1rem * .8);
+    margin-bottom: .5rem;
+}
+
+
+
+
+
+/* ---------- */
+
+/* Login Card Footer */
+.logincardfooter {
+    margin-top: 1.5rem;
+    font-size: calc(1rem * .8);
+}
+
+/* ---------- */
+
+/* Login Card Form Elements */
+.logincard input[type="text"],
+.logincard input[type="password"],
+.logincard input[type="email"],
+.logincard input[type="prenom"],
+.logincard input[type="nom"],
+.logincard input[type="date"],
+.logincard input[type="number"],
+.logincard select,
+.logincard input[type="confirm_password"] {
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, .3);
+    padding: 1rem 1.5rem;
+    padding-left: calc(1rem * 3.5);
+    border-radius: 100px;
+    width: 77%;
+    transition: background .5s;
+}
+
+.logincard select{
+
+    width: 60%;
+    
+}
+
+.logincard input:focus, .logincard select:focus {
+    background: white;
+}
+
+.logincard input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: black;
+}
+
+.logincard button {
+    background: black;
+    width: 100%;
+    color: white;
+    padding: 1rem;
+    border-radius: 100px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: background .5s;
+}
+
+.logincard button:hover {
+    background-color: rgba(0, 0, 0, 0.85);
+    cursor: pointer;
+}
+
+/* ---------- */
+
+/* Login Card Social Buttons */
+.logincardsocial {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.logincardsocial div {
+    opacity: .8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: calc(1rem * .8);
+}
+
+.logincardsocialbtns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.logincardsocialbtns a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, .6);
+    border-radius: 100px;
+    transition: all .5s;
+}
+
+.logincardsocialbtns a:hover {
+    background-color: white;
+    transform: scale(1.1);
+}
+
+
+
+/* ---------- */
+
+
+/* Responsive */
+@media (max-width: 768px) {
+
+    .logincard {
+        width: 280px;
+        padding: 2rem;
+    }
+}
+.button {
+  border: none;
+}
+
