@@ -7,23 +7,36 @@ import '../products.css';
 
 function Products() {
   const [items, setItems] = useState([]);
-  
 
   useEffect(() => {
     const userId = localStorage.getItem('id');
-    // Effectuer une requête GET pour récupérer les tâches de l'utilisateur spécifié par l'id
+
     axios.get(`http://localhost:5000/api/items/${userId}`)
       .then(response => setItems(response.data))
       .catch(error => console.error('Error fetching items:', error));
-  }, []);// Utiliser un tableau vide comme dépendance pour effectuer la requête une seule fois lors du chargement initial
+  }, []);
 
-  // Fonction pour supprimer une tâche
+  const getImportanceClass = (importance) => {
+    importance = importance.toLowerCase(); // Convertir en minuscules pour ignorer la casse
+
+    if (importance === 'not important') {
+      return 'not-important';
+    } else if (importance === 'can wait') {
+      return 'can-wait';
+    } else if (importance === 'urgent') {
+      return 'urgent';
+    } else if (importance === 'normal') {
+      return 'normal';
+     } else {
+      return '';
+    }
+  };
+
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(`http://localhost:5000/api/items/${id}`);
 
       if (response.status === 200) {
-        // Rafraîchir la liste des tâches après la suppression
         const updatedItems = items.filter(item => item._id !== id);
         setItems(updatedItems);
       }
@@ -36,22 +49,24 @@ function Products() {
     <div>
       <Header />
       <div className='products-div'>
-
         <Link to="/addProduct">
-          <button id='add'><div id='add-div'><span class="material-icons" id='add-icons'>add</span>Add products</div></button>
+          <button id='add'><div id='add-div'><span className="material-icons" id='add-icons'>add</span>Add task</div></button>
         </Link>
-        <h2>Products</h2>
-
+        <h2>My Tasks</h2>
         <ul>
           {items.map(item => (
             <li key={item._id}>
-              <strong>{item.name}</strong> - ${item.price}
+            <button className={`importance ${getImportanceClass(item.importance)}`}>{item.importance}</button><strong>{item.name}</strong> 
+            <button id='delete' onClick={() => handleDelete(item._id)}><span className="material-icons">delete</span></button>
               <Link to={`/modifyProduct/${item._id}`}>
-                <button id='edit'><span class="material-icons">edit</span></button>
+                <button id='edit'><span className="material-icons">edit</span></button>
               </Link>
-              <button id='delete' onClick={() => handleDelete(item._id)}><span class="material-icons">delete</span></button>
+              
+              <hr id='hr-tasks'></hr>
             </li>
+           
           ))}
+          
         </ul>
       </div>
     </div>

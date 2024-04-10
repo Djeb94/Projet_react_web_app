@@ -94,6 +94,7 @@ function AddTask() {
                 <option value=""> Select Importance :</option>
                 <hr />
                 <option value="Not important">Not important</option>
+                <option value="Normal">Normal</option>
                 <option value="Can wait">Can wait</option>
                 <option value="Urgent">Urgent</option>
               </select>

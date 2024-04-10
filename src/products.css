@@ -13,8 +13,8 @@
 
 
 .products-div #add{
-       
-        margin-left: 0px;
+    float: right;
+        margin-right: 20px;
         background-color: #527ed7;
         box-shadow:  0 0 20px #527ed7;
         border: none;
@@ -36,7 +36,8 @@ opacity: 70%;
 }
 
 .products-div #delete{
-    margin-left: 10px ;
+    margin-right: 20px;
+    float: right;
     border:none;
     background-color: rgb(199, 53, 53);
     color: white;
@@ -52,7 +53,8 @@ opacity: 70%;
     }
 
 .products-div #edit{
-    margin-left: 20px;
+    margin-right: 20px;
+    float: right;
     border:2px solid #527ed7;
     color: #527ed7;
     background-color: transparent;
@@ -70,3 +72,55 @@ opacity: 70%;
 .material-icons{
     font-size: 18px;
 }
+
+button.urgent {
+    float: left;
+    background-color: transparent;
+    color: rgb(199, 53, 53);
+    border: 2px  solid rgb(199, 53, 53);
+    padding: 5px 5px 5px 5px;
+    width: 80px;
+    border-radius: 10px;
+    font-size: 12px;
+
+  }
+  
+  
+  button.can-wait {
+    float: left;
+    background-color: transparent;
+    color: rgb(239, 175, 13);
+    border: 2px  solid rgb(239, 175, 13);
+    padding: 5px 5px 5px 5px;
+    width: 80px;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+ 
+  button.not-important {
+    float: left;
+    background-color: transparent;
+    color: rgb(59, 185, 69);
+    border: 2px  solid rgb(59, 185, 69);
+    padding: 5px 5px 5px 5px;
+    width: 100px;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+
+  button.normal {
+    float: left;
+    background-color: transparent;
+    color: white;
+    border: 2px  solid white;
+    padding: 5px 5px 5px 5px;
+    width: 80px;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+
+  #hr-tasks{
+    margin-top: 20px;
+    width: 70%;
+    border:  1px solid rgba(255, 255, 255, 0.064);
+  }
