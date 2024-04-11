@@ -9,6 +9,7 @@
 }
 .products-div li{
     margin-top: 50px;
+    text-align: center;
 }
 
 
@@ -57,6 +58,11 @@ strong{
 
 .products-div h2{
     color: rgba(255, 255, 255, 0.495);
+    
+}
+#MyTasks{
+    padding-right: 250px;
+    padding-left: 0px;
 }
 
 .products-div #delete:hover{
@@ -135,4 +141,8 @@ button.priority {
     margin-top: 20px;
     width: 70%;
     border:  1px solid rgba(255, 255, 255, 0.064);
+  }
+  #importance{
+    float: left;
+    margin-left: 20px;
   }

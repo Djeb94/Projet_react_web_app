@@ -49,10 +49,12 @@ function Products() {
     <div>
       <Header />
       <div className='products-div'>
+      <h2 id='importance'>Importance</h2>
         <Link to="/addProduct">
           <button id='add'><div id='add-div'><span className="material-icons" id='add-icons'>add</span>Add task</div></button>
         </Link>
-        <h2>My Tasks</h2>
+        <h2 id='MyTasks'>My Tasks</h2>
+        
         <ul>
           {items.map(item => (
             <li key={item._id}>

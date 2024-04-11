@@ -149,29 +149,44 @@ app.delete('/api/items/:id', async (req, res) => {
 app.put('/api/items/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, price } = req.body;
+        const { name, importance } = req.body;
 
-        // Accédez à la collection "cart-items"
+        // Accédez à la collection "tasks"
         const collection = client.db('ToDoDB').collection('tasks');
 
-        // Mettez à jour l'article avec l'ID spécifié
+        // Mettez à jour la tâche avec l'ID spécifié
         const result = await collection.updateOne(
             { _id: new ObjectId(id) },
-            { $set: { name, price } }
+            { $set: { name, importance } }
         );
 
-        // Vérifiez si l'article a été mis à jour avec succès
+        // Vérifiez si la tâche a été mise à jour avec succès
         if (result.matchedCount === 1) {
-            res.status(200).json({ message: 'Article updated successfully' });
+            res.status(200).json({ message: 'Task updated successfully' });
         } else {
-            res.status(404).json({ error: 'Article not found' });
+            res.status(404).json({ error: 'Task not found' });
         }
     } catch (error) {
-        console.error('Error updating item:', error);
+        console.error('Error updating task:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-  
+
+app.get('/api/tasks/:taskId', async (req, res) => {
+    const taskId = req.params.taskId; // Récupérer l'ID de la tâche depuis les paramètres de l'URL
+    const collection = client.db('ToDoDB').collection('tasks');
+    try {
+        // Rechercher la tâche en fonction de son ID
+        const task = await collection.findOne({ _id: new ObjectId(taskId) });
+        if (!task) {
+            return res.status(404).json({ error: "Task not found" });
+        }
+        res.json(task);
+    } catch (error) {
+        console.error('Error fetching task:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
   
 
 // Middleware pour gérer les requêtes OPTIONS

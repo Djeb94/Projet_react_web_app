@@ -1,73 +1,89 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import '../form.css';
 
 function ModifyProducts() {
-  const { id } = useParams(); // Récupérer l'ID du produit à partir de l'URL
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
+  const { id } = useParams();
+  const [taskName, setTaskName] = useState('');
+  const [taskImportance, setTaskImportance] = useState('');
+  const [buttonState, setButtonState] = useState({ text: 'Submit', background: 'black' });
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Effectuer une requête pour récupérer les détails du produit à partir de l'API
-    const fetchProduct = async () => {
+    // Effectuer une requête pour récupérer les détails de la tâche à partir de l'API
+    const fetchTask = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/items/${id}`);
-        const { name, price } = response.data;
-        setName(name);
-        setPrice(price);
+        const response = await axios.get(`http://localhost:5000/api/tasks/${id}`);
+        console.log(response.data);
+        if (response && response.data) {
+          const { name, importance } = response.data;
+          if (name && importance) {
+            setTaskName(name);
+            setTaskImportance(importance);
+          } else {
+            console.error('Task data incomplete');
+          }
+        } else {
+          console.error('No data received from the server');
+        }
       } catch (error) {
-        console.error('Error fetching product details:', error);
+        console.error('Error fetching task details:', error);
       }
     };
-
-    fetchProduct(); // Appeler la fonction de récupération du produit
-  }, [id]); 
+  
+    fetchTask(); // Appeler la fonction de récupération de la tâche
+  }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.put(`http://localhost:5000/api/items/${id}`, {
-        name: name,
-        price: price
+        name: taskName,
+        importance: taskImportance
+        
       });
-      console.log(response.data);
-      navigate('/products');
-      // Réinitialiser les champs du formulaire après la soumission réussie
-      setName('');
-      setPrice('');
+      if (response.status === 200) {
+        navigate('/products');
+        console.log('Task updated successfully');
+      } else {
+        setButtonState({ text: 'Error', background: 'rgb(250, 67, 60)' });
+        setTimeout(() => {
+          setButtonState({ text: 'Submit', background: 'black' });
+        }, 4000);
+        console.error('Error updating task');
+      }
     } catch (error) {
-      console.error('Error modifying item:', error);
+      console.error('Error modifying task:', error);
     }
   };
 
   return (
-    <div className="App">
-    <div className="App-header">
-      <h2>Modify Product</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="product-name">Name:</label>
-        <input
-          type="text"
-          id="product-name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <br />
-        <label htmlFor="product-price">Price:</label>
-        <input
-          type="number"
-          id="product-price"
-          min="0"
-          step=".01"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-        <br />
-        <button type="submit">Update Product</button>
-      </form>
+    <div className="main">
+      <div className="logincardcontainer" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div className="logincard">
+          <div className="logincardheader">
+            <h1>Modify Task</h1>
+          </div>
+          <form onSubmit={handleSubmit} className="logincardform" noValidate>
+            <div className="formitem">
+              <span className="material-icons">label</span>
+              <input type='text' placeholder='Task Name' value={taskName} onChange={(e) => setTaskName(e.target.value)} autoFocus required />
+            </div>
+            <div className="formitem">
+              <span className="material-icons">device_thermostat</span>
+              <select value={taskImportance} onChange={(e) => setTaskImportance(e.target.value)} required>
+                <option value="normal">Select Importance :</option>
+                <hr />
+                <option value="Optional">Optional</option>
+                <option value="Normal">Normal</option>
+                <option value="Important">Important</option>
+                <option value="Priority">Priority</option>
+              </select>
+            </div>
+            <button className="button" type='submit' style={{ background: buttonState.background }}>{buttonState.text}</button>
+          </form>
+        </div>
       </div>
     </div>
   );

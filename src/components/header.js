@@ -25,10 +25,10 @@ function Header() {
         <header>
             <nav>
                 <ul>
-                    <li><a href="/">Shopping</a></li>
-                    <li><a href="/about">About us</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    {username && <li>Welcome {username}</li>} {/* Afficher le nom d'utilisateur s'il existe */}
+                    <li><a href="">Shopping</a></li>
+                    <li><a href="">About us</a></li>
+                    <li><a href="">Contact</a></li>
+                    {username && <li> <strong>Welcome {username},</strong></li>} {/* Afficher le nom d'utilisateur s'il existe */}
                     <li id='list-button'><button onClick={handleLogout} id='disconnect'>Disconnect</button></li>
                 </ul>
             </nav>

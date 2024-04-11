@@ -91,7 +91,7 @@ function AddTask() {
             <div className="formitem">
               <span class="material-icons">device_thermostat</span>
               <select value={taskImportance} onChange={(e) => setTaskImportance(e.target.value)} required>
-                <option value="Normal"> Select Importance :</option>
+                <option value="normal"> Select Importance :</option>
                 <hr />
                 <option value="Optional">Optional</option>
                 <option value="Normal">Normal</option>
