@@ -4,6 +4,7 @@
 }
 .products-div ul{
     list-style: none;
+    margin-top: 100px;
 
 }
 .products-div li{
@@ -46,7 +47,18 @@ opacity: 70%;
     border-radius: 10px;
     font-size: 12px;
     transition: all 250ms;
+    text-align: center;
 }
+
+strong{
+    margin-right: 125px;
+    
+}
+
+.products-div h2{
+    color: rgba(255, 255, 255, 0.495);
+}
+
 .products-div #delete:hover{
     
     opacity: 70%;
@@ -73,7 +85,7 @@ opacity: 70%;
     font-size: 18px;
 }
 
-button.urgent {
+button.priority {
     float: left;
     background-color: transparent;
     color: rgb(199, 53, 53);
@@ -86,7 +98,7 @@ button.urgent {
   }
   
   
-  button.can-wait {
+  button.important {
     float: left;
     background-color: transparent;
     color: rgb(239, 175, 13);
@@ -97,13 +109,13 @@ button.urgent {
     font-size: 12px;
   }
  
-  button.not-important {
+  button.optional {
     float: left;
     background-color: transparent;
     color: rgb(59, 185, 69);
     border: 2px  solid rgb(59, 185, 69);
     padding: 5px 5px 5px 5px;
-    width: 100px;
+    width: 80px;
     border-radius: 10px;
     font-size: 12px;
   }

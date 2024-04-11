@@ -19,12 +19,12 @@ function Products() {
   const getImportanceClass = (importance) => {
     importance = importance.toLowerCase(); // Convertir en minuscules pour ignorer la casse
 
-    if (importance === 'not important') {
-      return 'not-important';
-    } else if (importance === 'can wait') {
-      return 'can-wait';
-    } else if (importance === 'urgent') {
-      return 'urgent';
+    if (importance === 'optional') {
+      return 'optional';
+    } else if (importance === 'important') {
+      return 'important';
+    } else if (importance === 'priority') {
+      return 'priority';
     } else if (importance === 'normal') {
       return 'normal';
      } else {

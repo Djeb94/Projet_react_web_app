@@ -91,12 +91,12 @@ function AddTask() {
             <div className="formitem">
               <span class="material-icons">device_thermostat</span>
               <select value={taskImportance} onChange={(e) => setTaskImportance(e.target.value)} required>
-                <option value=""> Select Importance :</option>
+                <option value="Normal"> Select Importance :</option>
                 <hr />
-                <option value="Not important">Not important</option>
+                <option value="Optional">Optional</option>
                 <option value="Normal">Normal</option>
-                <option value="Can wait">Can wait</option>
-                <option value="Urgent">Urgent</option>
+                <option value="Important">Important</option>
+                <option value="Priority">Priority</option>
               </select>
             </div>
             <button className="button" type='submit' style={{ background: buttonState.background }}>{buttonState.text}</button>
