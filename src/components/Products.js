@@ -49,12 +49,13 @@ function Products() {
     <div>
       <Header />
       <div className='products-div'>
-      <h2 id='importance'>Importance</h2>
+      <div className='tasks-menu'>
+      <h2 id='MyTasks'>My Tasks</h2>
         <Link to="/addProduct">
           <button id='add'><div id='add-div'><span className="material-icons" id='add-icons'>add</span>Add task</div></button>
         </Link>
-        <h2 id='MyTasks'>My Tasks</h2>
         
+        </div>
         <ul>
           {items.map(item => (
             <li key={item._id}>
@@ -63,7 +64,7 @@ function Products() {
               <Link to={`/modifyProduct/${item._id}`}>
                 <button id='edit'><span className="material-icons">edit</span></button>
               </Link>
-              
+              <button id='done'><span class="material-icons">done</span></button>
               <hr id='hr-tasks'></hr>
             </li>
            

@@ -12,11 +12,14 @@
     text-align: center;
 }
 
-
+.tasks-menu{
+    display: flex;
+    justify-content: center;
+}
 
 .products-div #add{
-    float: right;
-        margin-right: 20px;
+        margin-top: 15px;
+        margin-left: 20px ;
         background-color: #527ed7;
         box-shadow:  0 0 20px #527ed7;
         border: none;
@@ -52,7 +55,7 @@ opacity: 70%;
 }
 
 strong{
-    margin-right: 125px;
+    margin-right: 60px;
     
 }
 
@@ -60,10 +63,7 @@ strong{
     color: rgba(255, 255, 255, 0.495);
     
 }
-#MyTasks{
-    padding-right: 250px;
-    padding-left: 0px;
-}
+
 
 .products-div #delete:hover{
     
@@ -91,6 +91,26 @@ strong{
     font-size: 18px;
 }
 
+#done{
+    margin-right: 20px;
+    float: right;
+    border:none;
+    background-color: #527ed7;
+    color: white;
+    padding: 7px 2px 7px 2px;
+    width: 35px;
+    font-weight: bolder;
+    border-radius: 10px;
+    font-size: 12px;
+    transition: all 250ms;
+    text-align: center;
+}
+#done:hover{
+    
+    opacity: 70%;
+    }
+
+
 button.priority {
     float: left;
     background-color: transparent;
@@ -102,8 +122,7 @@ button.priority {
     font-size: 12px;
 
   }
-  
-  
+
   button.important {
     float: left;
     background-color: transparent;
@@ -141,8 +160,4 @@ button.priority {
     margin-top: 20px;
     width: 70%;
     border:  1px solid rgba(255, 255, 255, 0.064);
-  }
-  #importance{
-    float: left;
-    margin-left: 20px;
   }
