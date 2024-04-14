@@ -114,17 +114,19 @@ app.get('/api/items/:userId', async (req, res) => {
 
 
   
-  app.post('/addTask', async (req, res) => {
+app.post('/addTask', async (req, res) => {
     try {
         const { name, importance, userId } = req.body; // Ajoutez userId à partir du corps de la requête
         const itemCollection = client.db('ToDoDB').collection('tasks');
-        await itemCollection.insertOne({ name, importance, userId }); // Enregistrez également userId avec la tâche
-        res.status(201).json({ message: 'Produit créé' });
+        // Ajoutez la valeur booléenne "active" à true pour indiquer que la tâche est active
+        await itemCollection.insertOne({ name, importance, userId, active: true }); 
+        res.status(201).json({ message: 'Tâche créée avec succès' });
     } catch (error) {
-        console.error('Erreur lors de la création du produit :', error);
-        res.status(500).json({ message: 'Erreur lors de la création du produit' });
+        console.error('Erreur lors de la création de la tâche :', error);
+        res.status(500).json({ message: 'Erreur lors de la création de la tâche' });
     }
 });
+
 
 
 app.delete('/api/items/:id', async (req, res) => {
@@ -187,6 +189,28 @@ app.get('/api/tasks/:taskId', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+app.put('/api/tasks/state/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const collection = client.db('ToDoDB').collection('tasks');
+        // Mettre à jour la tâche avec l'ID spécifié pour définir active à false
+        const result = await collection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: { active: false } }
+        );
+        // Vérifiez si la tâche a été mise à jour avec succès
+        if (result.matchedCount === 1) {
+            res.status(200).json({ message: 'Task status updated successfully' });
+        } else {
+            res.status(404).json({ error: 'Task not found' });
+        }
+    } catch (error) {
+        console.error('Error updating task status:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
   
 
 // Middleware pour gérer les requêtes OPTIONS

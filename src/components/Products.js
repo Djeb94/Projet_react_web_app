@@ -32,6 +32,10 @@ function Products() {
     }
   };
 
+  const getTaskClassName = (isActive) => {
+    return isActive ? '' : 'task-inactive';
+  };
+
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(`http://localhost:5000/api/items/${id}`);
@@ -42,6 +46,27 @@ function Products() {
       }
     } catch (error) {
       console.error('Error deleting item:', error);
+    }
+  };
+
+  const handleDoneClick = async (taskId) => {
+    try {
+      // Envoyer une requête PUT à l'API pour mettre à jour l'état "active" de la tâche
+      const response = await axios.put(`http://localhost:5000/api/tasks/state/${taskId}`);
+      if (response.status === 200) {
+        // Mettre à jour l'état local des tâches pour refléter le changement
+        setItems(prevItems => {
+          return prevItems.map(item => {
+            if (item._id === taskId) {
+              // Mettre à jour l'état "active" de la tâche actuelle à false
+              return { ...item, active: false };
+            }
+            return item;
+          });
+        });
+      }
+    } catch (error) {
+      console.error('Error updating task status:', error);
     }
   };
 
@@ -59,12 +84,13 @@ function Products() {
         <ul>
           {items.map(item => (
             <li key={item._id}>
-            <button className={`importance ${getImportanceClass(item.importance)}`}>{item.importance}</button><strong>{item.name}</strong> 
+            <strong className={getTaskClassName(item.active)}>{item.name}</strong> <button className={`importance ${getImportanceClass(item.importance)}`} id={getTaskClassName(item.active)}>{item.importance}</button>
             <button id='delete' onClick={() => handleDelete(item._id)}><span className="material-icons">delete</span></button>
               <Link to={`/modifyProduct/${item._id}`}>
                 <button id='edit'><span className="material-icons">edit</span></button>
               </Link>
-              <button id='done'><span class="material-icons">done</span></button>
+              
+              <button id='done'  onClick={() => handleDoneClick(item._id)}><span class="material-icons">done</span></button>
               <hr id='hr-tasks'></hr>
             </li>
            

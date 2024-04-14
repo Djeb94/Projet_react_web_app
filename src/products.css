@@ -55,7 +55,7 @@ opacity: 70%;
 }
 
 strong{
-    margin-right: 60px;
+    margin-right: 20px;
     
 }
 
@@ -93,9 +93,9 @@ strong{
 
 #done{
     margin-right: 20px;
-    float: right;
+    float: left;
     border:none;
-    background-color: #527ed7;
+    background-color: #b852d7;
     color: white;
     padding: 7px 2px 7px 2px;
     width: 35px;
@@ -112,7 +112,9 @@ strong{
 
 
 button.priority {
-    float: left;
+    
+    margin-left: 60px;
+    margin-top: 3px;
     background-color: transparent;
     color: rgb(199, 53, 53);
     border: 2px  solid rgb(199, 53, 53);
@@ -124,7 +126,8 @@ button.priority {
   }
 
   button.important {
-    float: left;
+ 
+    margin-top: 3px;
     background-color: transparent;
     color: rgb(239, 175, 13);
     border: 2px  solid rgb(239, 175, 13);
@@ -135,7 +138,8 @@ button.priority {
   }
  
   button.optional {
-    float: left;
+
+    margin-top: 3px;
     background-color: transparent;
     color: rgb(59, 185, 69);
     border: 2px  solid rgb(59, 185, 69);
@@ -146,7 +150,7 @@ button.priority {
   }
 
   button.normal {
-    float: left;
+    margin-top: 3px;
     background-color: transparent;
     color: white;
     border: 2px  solid white;
@@ -160,4 +164,12 @@ button.priority {
     margin-top: 20px;
     width: 70%;
     border:  1px solid rgba(255, 255, 255, 0.064);
+  }
+  .task-inactive {
+    text-decoration: line-through; 
+    opacity: 70%;
+  }
+
+  #task-inactive{
+    opacity: 70%;
   }

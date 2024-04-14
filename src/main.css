@@ -59,3 +59,8 @@ body{
     font-size: 15px;
     box-shadow:  0 0 20px #b852d7;
 }
+mark{
+    background-color: #b852d7 ;
+    color: white;
+    padding: 5px;
+}

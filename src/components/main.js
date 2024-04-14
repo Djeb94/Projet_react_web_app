@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 function Main() {
   return (
     <div id='w-div'>
-    <h1>Welcome to our fullstack app</h1>
+    <h1>Welcome to our <mark>fullstack app</mark></h1>
     <div id='main-div'>
       
       <Link to="/authentication"><button id='login'>Login</button></Link>
