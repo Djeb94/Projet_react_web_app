@@ -1,9 +1,10 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
+const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
-require('dotenv').config(); // Charger les variables d'environnement à partir du fichier .env
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -43,7 +44,12 @@ app.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
         const usersCollection = client.db('ToDoDB').collection('users');
-        const result = await usersCollection.insertOne({ username, email, password });
+        
+        // Générer un hachage sécurisé du mot de passe
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Stocker le nom d'utilisateur, l'e-mail et le mot de passe haché dans la base de données
+        const result = await usersCollection.insertOne({ username, email, password: hashedPassword });
         
         const insertedId = result.insertedId; // Récupérer l'ID de l'utilisateur nouvellement créé
 
@@ -59,15 +65,21 @@ app.post('/login', async (req, res) => {
 
     // Vérifier les informations d'authentification dans la base de données
     const usersCollection = client.db('ToDoDB').collection('users');
-    const user = await usersCollection.findOne({ email, password });
+    const user = await usersCollection.findOne({ email });
 
     if (user) {
-        // Authentification réussie
-        const token = jwt.sign({ email: user.email, userId: user._id }, 'votre_clé_secrète', { expiresIn: '1h' });
-        res.status(200).json({ message: 'Authentification réussie', token, username: user.username, userId: user._id }); // Renvoyer également l'ID de l'utilisateu
-
+        // Comparer le mot de passe fourni avec le mot de passe haché stocké dans la base de données
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (passwordMatch) {
+            // Authentification réussie
+            const token = jwt.sign({ email: user.email, userId: user._id }, 'votre_clé_secrète', { expiresIn: '1h' });
+            res.status(200).json({ message: 'Authentification réussie', token, username: user.username, userId: user._id }); // Renvoyer également l'ID de l'utilisateur
+        } else {
+            // Mot de passe incorrect
+            res.status(401).json({ message: 'Email ou mot de passe incorrect' });
+        }
     } else {
-        // Échec de l'authentification
+        // Utilisateur non trouvé
         res.status(401).json({ message: 'Email ou mot de passe incorrect' });
     }
 });
