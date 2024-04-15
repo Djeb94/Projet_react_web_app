@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = "mongodb+srv://gaeldjebar:RgT2t4KKgG8IkIhH@cluster0.vuwmomm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" // Utiliser l'URI de connexion à partir des variables d'environnement
+const MONGODB_URI = "mongodb+srv://gaeldjebar:RgT2t4KKgG8IkIhH@cluster0.vuwmomm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 let client = null;
 
