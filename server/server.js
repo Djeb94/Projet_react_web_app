@@ -3,18 +3,17 @@ const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+require('dotenv').config(); // Charger les variables d'environnement à partir du fichier .env
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = 'mongodb://localhost:27017';
-
+const MONGODB_URI = "mongodb+srv://gaeldjebar:RgT2t4KKgG8IkIhH@cluster0.vuwmomm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" // Utiliser l'URI de connexion à partir des variables d'environnement
 
 let client = null;
 
 async function connectToMongoDB() {
     client = new MongoClient(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
     
-
     try {
         await client.connect();
         console.log('Connecté à la base de données MongoDB');
