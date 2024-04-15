@@ -32,7 +32,7 @@ function ModifyProducts() {
       }
     };
   
-    fetchTask(); // Appeler la fonction de récupération de la tâche
+    fetchTask(); 
   }, [id]);
 
   const handleSubmit = async (e) => {

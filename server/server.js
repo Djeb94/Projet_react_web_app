@@ -153,7 +153,6 @@ app.put('/api/items/:id', async (req, res) => {
         const { id } = req.params;
         const { name, importance } = req.body;
 
-        // Accédez à la collection "tasks"
         const collection = client.db('ToDoDB').collection('tasks');
 
         // Mettez à jour la tâche avec l'ID spécifié

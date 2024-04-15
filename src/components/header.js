@@ -28,7 +28,7 @@ function Header() {
                     <li><a href="/products">My Tasks</a></li>
                     <li><a href="/products">About us</a></li>
                     <li><a href="/products">Contact</a></li>
-                    {username && <li> <strong>Welcome {username},</strong></li>} {/* Afficher le nom d'utilisateur s'il existe */}
+                    {username && <li> <strong>Welcome {username},</strong></li>} {}
                     <li id='list-button'><button onClick={handleLogout} id='disconnect'>Disconnect</button></li>
                 </ul>
             </nav>

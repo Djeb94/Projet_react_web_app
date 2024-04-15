@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../form.css";
 
-// Importez useState et useNavigate depuis 'react-router-dom'
-
 export default function Authentication() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -11,7 +9,7 @@ export default function Authentication() {
     const navigate = useNavigate();
 
     const onSubmit = async (event) => {
-        event.preventDefault(); // Empêcher le comportement de soumission par défaut du formulaire
+        event.preventDefault(); 
 
         try {
             const response = await fetch('http://localhost:5000/login', {
